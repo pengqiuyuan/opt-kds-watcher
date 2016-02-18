@@ -6,7 +6,7 @@ redis:
 logstashindexerkds:
     build: ./logstash
     volumes:
-        - /home/pengqiuyuan/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/index.conf:/opt/logstash/conf/index.conf
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/index.conf:/opt/logstash/conf/index.conf
     links:
         - "redis"
     command: logstash agent  -f /opt/logstash/conf/index.conf
@@ -14,7 +14,7 @@ logstashindexerkds:
 logstashagentkds:
     build: ./logstash
     volumes:
-        - /home/pengqiuyuan/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/agent.conf:/opt/logstash/conf/agent.conf
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/agent.conf:/opt/logstash/conf/agent.conf
     links:
         - "redis"
     command: logstash agent  -f /opt/logstash/conf/agent.conf
