@@ -1,12 +1,7 @@
-# Run Under Ubuntu
 
-## 环境要求
 
-- Docker
-- Docker compose
-
-## 修改配置
-elasticsearch目录
+## 文件说明
+docker-compose.yml文件
 ```
 redis:
     build: ./redis
