@@ -7,15 +7,13 @@ logstashindexerkds:
     build: ./logstash
     volumes:
         - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/index.conf:/opt/logstash/conf/index.conf
-    links:
-        - "redis"
     command: logstash agent  -f /opt/logstash/conf/index.conf
     restart: always
 logstashagentkds:
     build: ./logstash
     volumes:
+        - ~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb
+        - /home/ftp/logs:/home/ftp/logs
         - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/agent.conf:/opt/logstash/conf/agent.conf
-    links:
-        - "redis"
-    command: logstash agent  -f /opt/logstash/conf/agent.conf
+    command: logstash agent  -f /opt/logstash/conf/agent.conf 
     restart: always
