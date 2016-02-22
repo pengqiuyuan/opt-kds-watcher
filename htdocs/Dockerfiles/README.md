@@ -30,5 +30,5 @@ logstashagentkds:
 ```
 - redis：日志消息队列
 - logstashindexerkds：处理日志，发送报警邮件
-- logstashagentkds：收集宿主机`/home/ftp/logs`目录下面的日志，发送到redis。`~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb`记录日志的生产位置，挂载到宿主机的`~/sincedb/sincedb_opt_kds_warcher`目录下，`/opt/sincedb`是容器的日志位置记录文件，第一次自己记录生成，容器被删除以后，加载宿主机`~/sincedb/sincedb_opt_kds_warcher`下的文件
+- logstashagentkds：1、收集宿主机`/home/ftp/logs`目录下面的日志，发送到redis。注：自己要收集宿主机的日志位置可能不一样。2、`~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb`：记录日志的生产位置，挂载到宿主机的`~/sincedb/sincedb_opt_kds_warcher`目录下。3、`/opt/sincedb`是容器的日志位置记录文件，第一次自己记录生成，容器被删除以后，加载宿主机`~/sincedb/sincedb_opt_kds_warcher`下的文件
 
