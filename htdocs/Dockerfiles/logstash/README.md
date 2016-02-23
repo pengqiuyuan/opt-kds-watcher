@@ -63,9 +63,9 @@ filter {
 output {
 	if [type] == "kds_fatal.log"{
 		email {
-		        from => "pengqiuyuan@126.com"
+		        from => "test0@126.com"
 		        subject => "Kds 107 Error Alert"
-		        to => "370020694@qq.com,80387591@qq.com"
+		        to => "test1@qq.com,test2@qq.com"
 		        via => "smtp"
 		        htmlbody => "<h2>Kds 107 Error Alert</h2><br/><br/><div
 		        align='center'>%{message}</div>"
@@ -84,4 +84,4 @@ output {
 ```
 - 从redis，key为`kdstest`里取出日志
 - `split => ["message", "|"]`截取日志`如：[2015-12-23 16:44:03][/home/kds/trunk/server/src/vendor/common/stacker.go:9]|fatalstart`。`[message][1]`是`fatalstart`的时候，设置这条消息的`"type" => "kds_fatal.log"`.
-- `output`当`[type] == "kds_fatal.log"`的时候，`from => "pengqiuyuan@126.com"`发送报警邮件到`to => "370020694@qq.com,80387591@qq.com"`
+- `output`当`[type] == "kds_fatal.log"`的时候，`from => "test0@126.com"`发送报警邮件到`to => "test1@qq.com,test2@qq.com"`
