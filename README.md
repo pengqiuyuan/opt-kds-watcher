@@ -1,4 +1,4 @@
-# opt
+# opt-kds-watcher
 监控特殊日志。如：[2015-12-23 16:44:03][/home/kds/trunk/server/src/vendor/common/stacker.go:9]|fatalstart ，需要docker和docker compose
 ```
 当收集到这条日志，首先通过管道服“|”截取判断是否出现关键字“fatalstart”，出现则微信邮箱报警
@@ -6,7 +6,7 @@
 
 ### Structure
 ```
-~/opt/htdocs/Dockerfiles
+~/opt-kds-watcher/htdocs/Dockerfiles
 ├── README.md
 ├── redis
 │   └── Dockerfile
@@ -34,6 +34,6 @@ $ chmod +x /usr/local/bin/docker-compose
 ```
 ### runing
 ```
-~/opt/htdocs/Dockerfiles 目录下
+~/opt-kds-watcher/htdocs/Dockerfiles 目录下
 docker-compose build & docker-compose up -d 
 ```
