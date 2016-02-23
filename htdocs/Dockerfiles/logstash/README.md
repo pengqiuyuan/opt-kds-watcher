@@ -30,6 +30,8 @@ output {
  }   
 }
 ```
+- 把` path => ["/home/ftp/logs/*/*fatal*.log"]`目录收集的日志，发送到redis,key为`kdstest`
+- ` sincedb_path => "/opt/sincedb/.sincedb_opt_kds_warcher" `日志记录信息的文件`.sincedb_opt_kds_warcher`
 #### kds index.conf
 ```
 input {   
@@ -42,16 +44,13 @@ input {
    threads => "6"
  }   
 }
-
 filter {
-
         mutate {
             split => ["message", "|"]
         }
 	json {
             source => "[message][9]"
 	}
-	
         if "fatalstart" in [message][1]{
 		mutate {
 		    replace => { "type" => "kds_fatal.log" }
@@ -60,10 +59,7 @@ filter {
 			remove_field => ["host","path","tags" ]
 		}		
 	}
-
 }
-
-
 output {
 	if [type] == "kds_fatal.log"{
 		email {
@@ -86,3 +82,6 @@ output {
 	}
 }
 ```
+- 从redis，key为`kdstest`里取出日志
+- `split => ["message", "|"]`截取日志`如：[2015-12-23 16:44:03][/home/kds/trunk/server/src/vendor/common/stacker.go:9]|fatalstart`。`[message][1]`是`fatalstart`的时候，设置这条消息的`"type" => "kds_fatal.log"`.
+- `output`当`[type] == "kds_fatal.log"`的时候，`from => "pengqiuyuan@126.com"`发送报警邮件到`to => "370020694@qq.com,80387591@qq.com"`
