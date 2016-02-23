@@ -65,7 +65,7 @@ output {
 		email {
 		        from => "pengqiuyuan@126.com"
 		        subject => "Kds 107 Error Alert"
-		        to => "370020694@qq.com,80387591@qq.com"
+		        to => "11111111@qq.com,2222222@qq.com"
 		        via => "smtp"
 		        htmlbody => "<h2>Kds 107 Error Alert</h2><br/><br/><div
 		        align='center'>%{message}</div>"
