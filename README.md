@@ -1,5 +1,5 @@
 # opt
-监控特殊日志。如：[2015-12-23 16:44:03][/home/kds/trunk/server/src/vendor/common/stacker.go:9]|fatalstart
+监控特殊日志。如：[2015-12-23 16:44:03][/home/kds/trunk/server/src/vendor/common/stacker.go:9]|fatalstart ,问了方便需要docker和docker compose
 ```
 当收集到这条日志，首先通过管道服“|”截取判断是否出现关键字“fatalstart”，出现则微信邮箱报警
 ```
