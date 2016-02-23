@@ -1,47 +1,29 @@
-# Run Under Ubuntu
 
-## 环境要求
 
-- Docker
-- Docker compose
+## 文件说明
+docker-compose.yml文件
+```
+redis:
+    build: ./redis
+    ports:
+      - "6378:6379"
+    restart: always
+logstashindexerkds:
+    build: ./logstash
+    volumes:
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/index.conf:/opt/logstash/conf/index.conf
+    command: logstash agent  -f /opt/logstash/conf/index.conf
+    restart: always
+logstashagentkds:
+    build: ./logstash
+    volumes:
+        - ~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb
+        - /home/ftp/logs:/home/ftp/logs
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/agent.conf:/opt/logstash/conf/agent.conf
+    command: logstash agent  -f /opt/logstash/conf/agent.conf 
+    restart: always
+```
+- redis：日志消息队列，注：使用6378替代默认的6379，外界访问6378
+- logstashindexerkds：处理日志，发送报警邮件
+- logstashagentkds：1、收集宿主机`/home/ftp/logs`目录下面的日志，发送到redis。注：自己要收集宿主机的日志位置可能不一样。2、`~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb`：记录日志的生产位置，挂载到宿主机的`~/sincedb/sincedb_opt_kds_warcher`目录下。3、`/opt/sincedb`是容器的日志位置记录文件，第一次自己记录生成，容器被删除以后，加载宿主机`~/sincedb/sincedb_opt_kds_warcher`下的文件
 
-## 修改配置
-elasticsearch目录
-```
-~/opt/htdocs/Dockerfiles/elasticsearch/config/elasticsearch.yml 最后一行修改为宿主机地址
-discovery.zen.ping.unicast.hosts: ["*.*.*.*"]
-```
-logstash目录
-```
-~/opt/htdocs/Dockerfiles/logstash/kds/agent.conf 修改1处为宿主机地址
-
-    host => "*.*.*.*"
-    
-~/opt/htdocs/Dockerfiles/logstash/kds/index.conf 修改4处为宿主机地址
-
-    host => "*.*.*.*"
-    host => ["*.*.*.*"]
-    host => ["*.*.*.*"]
-    host => ["*.*.*.*"]
-```
-nginx目录
-```
-~/opt/htdocs/Dockerfiles/nginx/nginx.conf 修改2处为宿主机地址
-    
-    upstream game-ser{
-       server *.*.*.*:8080;
-    }
-    location /port/{
-      proxy_set_header    Host $http_host;
-      proxy_set_header    X-Real-IP   $remote_addr;
-      proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_redirect off;
-      proxy_pass  http://*.*.*.*:9200/;
-    }
-```
-构建及运行环境
-
-```
-docker-compose build
-docker-compose up -d
-```
