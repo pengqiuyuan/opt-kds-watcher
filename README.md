@@ -10,10 +10,13 @@
 ├── README.md
 ├── redis
 │   └── Dockerfile
+├── filebeat
+│   ├── Dockerfile
+│   └── kds
+│       └── filebeat.yml
 ├── logstash
 │   ├── Dockerfile
 │   └── kds
-│       ├── agent.conf
 │       └── index.conf
 ├── docker-compose-yml
 
