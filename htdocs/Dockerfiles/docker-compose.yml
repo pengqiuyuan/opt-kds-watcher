@@ -9,11 +9,10 @@ logstashindexerkds:
         - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/index.conf:/opt/logstash/conf/index.conf
     command: logstash agent  -f /opt/logstash/conf/index.conf
     restart: always
-logstashagentkds:
-    build: ./logstash
+filebeat:
+    build: ./filebeat
     volumes:
-        - ~/sincedb/sincedb_opt_kds_warcher:/opt/sincedb
-        - /home/ftp/logs:/home/ftp/logs
-        - ~/opt-kds-watcher/htdocs/Dockerfiles/logstash/kds/agent.conf:/opt/logstash/conf/agent.conf
-    command: logstash agent  -f /opt/logstash/conf/agent.conf 
+        - ~/sincedb/sincedb_kds_watcher_f:/opt/sincedb
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/log:/home/ftp/logs
+        - ~/opt-kds-watcher/htdocs/Dockerfiles/filebeat/kds/filebeat.yml:/filebeat.yml
     restart: always

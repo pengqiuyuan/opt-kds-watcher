@@ -1,0 +1,12 @@
+filebeat:  
+  prospectors:
+    -
+      paths:
+         - /home/ftp/logs/*/*.log
+  registry_file: /opt/sincedb/.kds_watcher_f
+output:
+  redis:
+    host: "10.0.29.152"
+    port: 6378
+    index: "kds_watcher_f"
+    bulk_max_size: 20000  
